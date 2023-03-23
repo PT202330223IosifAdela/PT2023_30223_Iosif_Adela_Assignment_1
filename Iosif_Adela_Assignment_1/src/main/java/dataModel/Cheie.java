@@ -23,4 +23,8 @@ public class Cheie {
     public int hashCode() {
         return Objects.hash(coef, exp);
     }
+
+    public int getExp() {
+        return exp;
+    }
 }
