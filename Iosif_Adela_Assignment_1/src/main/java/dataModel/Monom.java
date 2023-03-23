@@ -30,9 +30,7 @@ public class Monom {
 
     @Override
     public String toString() {
-        if(coef >= 0)
-            return "+" + coef +"x^" + exp + " ";
-        else return coef +"x^" + exp + " ";
+            return coef +"x^" + exp + " ";
     }
 
     public Monom adunare(Monom monomNou){
@@ -41,7 +39,7 @@ public class Monom {
 
         }
         int coefNou = this.getCoef() + monomNou.getCoef();
-        return new Monom(this.exp, coefNou);
+        return new Monom(coefNou, this.exp);
     }
 
     public Monom scadere(Monom monomNou){
@@ -50,13 +48,13 @@ public class Monom {
 
         }
         int coefNou = this.getCoef() - monomNou.getCoef();
-        return new Monom(this.exp, coefNou);
+        return new Monom(coefNou, this.exp);
     }
 
     public Monom inmultire(Monom monomNou){
         int coefNou = this.getCoef() * monomNou.getCoef();
         int expNou = this.getExp() + monomNou.getExp();
-        return new Monom(expNou, coefNou);
+        return new Monom(coefNou, expNou);
     }
 
 }

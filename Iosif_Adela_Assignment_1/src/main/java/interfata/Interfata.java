@@ -1,4 +1,4 @@
-package org.example;
+package interfata;
 
 import javax.swing.*;
 import java.awt.*;
