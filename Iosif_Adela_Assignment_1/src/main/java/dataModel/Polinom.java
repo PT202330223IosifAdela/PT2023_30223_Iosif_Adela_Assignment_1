@@ -13,11 +13,11 @@ public class Polinom {
     public Polinom(String polinomDat) {
 
         mapPoli = new HashMap<>();
-        String[] sirMonoame = polinomDat.split("\\s*\\+\\s*|\\s*-\\s*");
-        for(String m: sirMonoame){
+       // String[] sirMonoame = polinomDat.split("\\s*\\+\\s*|\\s*-\\s*");
+        /*for(String m: sirMonoame){
             Monom monom = new Monom(m);
             addMonom(monom);
-        }
+        }*/
     }
 
     public void addMonom(Monom monom) {  //adauga un monom la map (la polinom)
