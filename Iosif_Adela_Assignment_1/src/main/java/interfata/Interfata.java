@@ -9,8 +9,10 @@ public class Interfata implements ActionListener{
     JFrame frame;
     JPanel panel;
     JButton addButton, subtractButton, multiplyButton, divideButton;
-    JTextField poly1TextField, poly2TextField;
+    JTextField poly1TextField, poly2TextField, poly3TextField;
     JLabel resultLabel, errorLabel, poly1Label, poly2Label;
+
+    //JTextField
 
     public Interfata() {
         // Create the frame and panel
@@ -42,6 +44,13 @@ public class Interfata implements ActionListener{
         poly1TextField = new JTextField();
         poly2TextField = new JTextField();
 
+        poly3TextField = new JTextField("0");
+        poly3TextField.setEditable(false);
+        poly3TextField.setFont(new Font("Arial", Font.BOLD, 14));
+        poly1TextField.setFont(new Font("Arial", Font.BOLD, 14));
+        poly2TextField.setFont(new Font("Arial", Font.BOLD, 14));
+
+
         //Creare label standar, titlu
         resultLabel = new JLabel("Rezultat:");
         resultLabel.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -66,7 +75,7 @@ public class Interfata implements ActionListener{
         panel.add(multiplyButton);
         panel.add(divideButton);
         panel.add(resultLabel);
-        panel.add(errorLabel);
+        panel.add(poly3TextField);
 
         frame.add(panel);
 
