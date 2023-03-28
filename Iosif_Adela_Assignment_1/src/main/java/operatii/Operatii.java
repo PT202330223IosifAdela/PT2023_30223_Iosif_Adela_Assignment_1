@@ -2,6 +2,7 @@ package operatii;
 
 import dataModel.Monom;
 import dataModel.Polinom;
+import dataModel.PolinomIntrareGresit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,11 +114,12 @@ public class Operatii {
         }
     }
 
-    public Polinom parsarePolinom(String polinom) {
+    public Polinom parsarePolinom(String polinom) throws PolinomIntrareGresit{
         if (polinom == "") {
+            throw new PolinomIntrareGresit();
 
         }
-        String pattern = "";
+        String pattern = "((\\+|\\-|^)(\\d*))X{0,1}(\\^\\-{0,1}(\\d+))*";
         Pattern p = Pattern.compile(pattern);
 
         String matcher = "";
@@ -164,7 +166,7 @@ public class Operatii {
             }
         }
         if(!polinom.equals(matcher)){
-            //exceptie
+            throw new PolinomIntrareGresit();
         }
     return rez;
     }

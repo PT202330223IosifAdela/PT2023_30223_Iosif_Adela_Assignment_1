@@ -1,5 +1,10 @@
 package interfata;
 
+import dataModel.Polinom;
+import dataModel.PolinomIntrareGresit;
+import jdk.jshell.tool.JavaShellToolBuilder;
+import operatii.Operatii;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,7 +17,7 @@ public class Interfata implements ActionListener{
     JTextField poly1TextField, poly2TextField, poly3TextField;
     JLabel resultLabel, errorLabel, poly1Label, poly2Label;
 
-    //JTextField
+    private Operatii operatii = new Operatii();
 
     public Interfata() {
         // Create the frame and panel
@@ -25,27 +30,27 @@ public class Interfata implements ActionListener{
         panel.setLayout(new GridLayout(5, 2));
 
        //creare butoane si text fields
-        addButton = new JButton("Add");
+        addButton = new JButton("+");
         addButton.setBackground(Color.cyan);
         addButton.setFont(new Font("Arial", Font.BOLD, 16));
 
-        subtractButton = new JButton("Subtract");
+        subtractButton = new JButton("-");
         subtractButton.setBackground(Color.cyan);
         subtractButton.setFont(new Font("Arialn", Font.BOLD, 16));
 
-        multiplyButton = new JButton("Multiply");
+        multiplyButton = new JButton("*");
         multiplyButton.setBackground(Color.cyan);
         multiplyButton.setFont(new Font("Arial", Font.BOLD, 16));
 
-        divideButton = new JButton("Divide");
+        divideButton = new JButton("/");
         divideButton.setBackground(Color.cyan);
         divideButton.setFont(new Font("Arial", Font.BOLD, 16));
 
         poly1TextField = new JTextField();
         poly2TextField = new JTextField();
 
-        poly3TextField = new JTextField("0");
-        poly3TextField.setEditable(false);
+        poly3TextField = new JTextField();
+        //poly3TextField.setEditable(false);
         poly3TextField.setFont(new Font("Arial", Font.BOLD, 14));
         poly1TextField.setFont(new Font("Arial", Font.BOLD, 14));
         poly2TextField.setFont(new Font("Arial", Font.BOLD, 14));
@@ -94,36 +99,32 @@ public class Interfata implements ActionListener{
 
 
 
+    private void editareP1()
+    {
+
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
-        String poly1String = poly1TextField.getText();
-        String poly2String = poly2TextField.getText();
-        Interfata poly1 = null, poly2 = null;
-        String errorMessage = "";
+       String op = ((JButton) e.getSource()).getText();
+        Polinom rezultat = new Polinom();
 
-        if (e.getSource() == addButton) {
-            if (poly1 != null && poly2 != null) {
-              //  resultLabel.setText("Rezultat: " + poly1.add(poly2).toString());
-                errorLabel.setText("");
-            } else {
-                errorLabel.setText(errorMessage);
+        try{
+            if(op.equals("+")){
+                rezultat = operatii.adunare(operatii.parsarePolinom(poly1TextField.getText()), operatii.parsarePolinom(poly2TextField.getText()));
+                poly3TextField.setText(operatii.toString(rezultat));
             }
-        } else if (e.getSource() == subtractButton) {
-            if (poly1 != null && poly2 != null) {
-               // resultLabel.setText("Rezultat: " + poly1.subtract(poly2).toString());
-                errorLabel.setText("");
-            } else {
-                errorLabel.setText(errorMessage);
+
+            if(op.equals("-")){
+                rezultat = operatii.scadere(operatii.parsarePolinom(poly1TextField.getText()), operatii.parsarePolinom(poly2TextField.getText()));
+                poly3TextField.setText(operatii.toString(rezultat));
             }
-        } else if (e.getSource() == multiplyButton) {
-            if (poly1 != null && poly2 != null) {
-              //  resultLabel.setText("Rezultat: " + poly1.multiply(poly2).toString());
-                errorLabel.setText("");
-            } else {
-                errorLabel.setText(errorMessage);
-            }
+
+
+        } catch (PolinomIntrareGresit ex) {
+            throw new RuntimeException(ex);
         }
 
-        }
+
+    }
 
     }
