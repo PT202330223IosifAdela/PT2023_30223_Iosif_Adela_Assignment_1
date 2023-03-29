@@ -2,7 +2,6 @@ package interfata;
 
 import dataModel.Polinom;
 import dataModel.PolinomIntrareGresit;
-import jdk.jshell.tool.JavaShellToolBuilder;
 import operatii.Operatii;
 
 import javax.swing.*;
@@ -13,7 +12,7 @@ import java.awt.event.ActionListener;
 public class Interfata implements ActionListener{
     JFrame frame;
     JPanel panel;
-    JButton addButton, subtractButton, multiplyButton, divideButton;
+    JButton addButton, subtractButton, integrateButton, deriveButton;
     JTextField poly1TextField, poly2TextField, poly3TextField;
     JLabel resultLabel, errorLabel, poly1Label, poly2Label;
 
@@ -30,21 +29,21 @@ public class Interfata implements ActionListener{
         panel.setLayout(new GridLayout(5, 2));
 
        //creare butoane si text fields
-        addButton = new JButton("+");
+        addButton = new JButton("aduna");
         addButton.setBackground(Color.cyan);
         addButton.setFont(new Font("Arial", Font.BOLD, 16));
 
-        subtractButton = new JButton("-");
+        subtractButton = new JButton("scade");
         subtractButton.setBackground(Color.cyan);
         subtractButton.setFont(new Font("Arialn", Font.BOLD, 16));
 
-        multiplyButton = new JButton("*");
-        multiplyButton.setBackground(Color.cyan);
-        multiplyButton.setFont(new Font("Arial", Font.BOLD, 16));
+        integrateButton = new JButton("integrare");
+        integrateButton.setBackground(Color.cyan);
+        integrateButton.setFont(new Font("Arial", Font.BOLD, 16));
 
-        divideButton = new JButton("/");
-        divideButton.setBackground(Color.cyan);
-        divideButton.setFont(new Font("Arial", Font.BOLD, 16));
+        deriveButton = new JButton("derivare");
+        deriveButton.setBackground(Color.cyan);
+        deriveButton.setFont(new Font("Arial", Font.BOLD, 16));
 
         poly1TextField = new JTextField();
         poly2TextField = new JTextField();
@@ -69,16 +68,16 @@ public class Interfata implements ActionListener{
 
         addButton.addActionListener(this);
         subtractButton.addActionListener(this);
-        multiplyButton.addActionListener(this);
-        divideButton.addActionListener(this);// Add the components to the panel
+        integrateButton.addActionListener(this);
+        deriveButton.addActionListener(this);// Add the components to the panel
         panel.add(poly1Label);
         panel.add(poly1TextField);
         panel.add(poly2Label);
         panel.add(poly2TextField);
         panel.add(addButton);
         panel.add(subtractButton);
-        panel.add(multiplyButton);
-        panel.add(divideButton);
+        panel.add(integrateButton);
+        panel.add(deriveButton);
         panel.add(resultLabel);
         panel.add(poly3TextField);
 
@@ -97,31 +96,30 @@ public class Interfata implements ActionListener{
 
     }
 
-
-
-    private void editareP1()
-    {
-
-    }
     @Override
     public void actionPerformed(ActionEvent e) {
        String op = ((JButton) e.getSource()).getText();
         Polinom rezultat = new Polinom();
 
         try{
-            if(op.equals("+")){
+            if(op.equals("aduna")){
                 rezultat = operatii.adunare(operatii.parsarePolinom(poly1TextField.getText()), operatii.parsarePolinom(poly2TextField.getText()));
                 poly3TextField.setText(operatii.toString(rezultat));
             }
 
-            if(op.equals("-")){
+            if(op.equals("scade")){
                 rezultat = operatii.scadere(operatii.parsarePolinom(poly1TextField.getText()), operatii.parsarePolinom(poly2TextField.getText()));
+                poly3TextField.setText(operatii.toString(rezultat));
+            }
+
+            if(op.equals("derivare")){
+                rezultat = operatii.derivare(operatii.parsarePolinom(poly1TextField.getText()));
                 poly3TextField.setText(operatii.toString(rezultat));
             }
 
 
         } catch (PolinomIntrareGresit ex) {
-            throw new RuntimeException(ex);
+            JOptionPane.showMessageDialog(null, "Date introduse gresit", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
 
