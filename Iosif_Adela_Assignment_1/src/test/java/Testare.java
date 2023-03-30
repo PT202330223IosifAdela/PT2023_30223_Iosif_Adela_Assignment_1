@@ -9,6 +9,7 @@ import javax.swing.*;
 
 public class Testare {
     private final Operatii operatii = new Operatii();
+
     @Test
     public void adunareTest() {
         String s1 = "x^2+2x^0";
@@ -35,6 +36,7 @@ public class Testare {
             JOptionPane.showMessageDialog(null, "Nu coincide rez", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
     @Test
     public void inmultireTest() {
         String s1 = "x^2+2x^0";
@@ -50,6 +52,7 @@ public class Testare {
             JOptionPane.showMessageDialog(null, "Nu coincide rez", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
     @Test
     public void derivareTest() {
         String s1 = "x^2+2x^0";
@@ -61,6 +64,7 @@ public class Testare {
             JOptionPane.showMessageDialog(null, "Nu coincide rez", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
     @Test
     public void integrareTest() {
         String s1 = "x^2+2x^0";
