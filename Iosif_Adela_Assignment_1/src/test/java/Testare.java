@@ -20,7 +20,8 @@ public class Testare {
             Assert.assertEquals("2+6x+x^2+7x^3", operatii.toString(rezultat));
 
         } catch (PolinomIntrareGresit ex) {
-            JOptionPane.showMessageDialog(null, "Nu coincide rez", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Nu coincide rez",
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

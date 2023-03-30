@@ -32,7 +32,6 @@ public class Operatii {
             Integer putere = entry.getKey();
             polinomRez.getMonoame().put(putere, m);
         }
-        //sortare dupa grad - to de
         return polinomRez;
     }
 
@@ -63,7 +62,6 @@ public class Operatii {
             Monom rezMonon = new Monom((-1) * m.getCoef(), putere);
             polinomRez.getMonoame().put(putere, rezMonon);
         }
-        //sortare dupa grad - to do
         return polinomRez;
     }
 
