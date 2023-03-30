@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Interfata implements ActionListener{
+public class Interfata implements ActionListener {
     JFrame frame;
     JPanel panel;
     JButton addButton, subtractButton, integrateButton, deriveButton, multiplyButton, reset;
@@ -28,7 +28,7 @@ public class Interfata implements ActionListener{
         panel = new JPanel();
         panel.setLayout(new GridLayout(6, 2));
 
-       //creare butoane si text fields
+        //creare butoane si text fields
         addButton = new JButton("adunare");
         addButton.setBackground(Color.cyan);
         addButton.setFont(new Font("Arial", Font.BOLD, 16));
@@ -113,33 +113,33 @@ public class Interfata implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-       String op = ((JButton) e.getSource()).getText();
+        String op = ((JButton) e.getSource()).getText();
         Polinom rezultat;
 
-        try{
-            if(op.equals("adunare")){
+        try {
+            if (op.equals("adunare")) {
                 rezultat = operatii.adunare(operatii.parsarePolinom(poly1TextField.getText()), operatii.parsarePolinom(poly2TextField.getText()));
                 poly3TextField.setText(operatii.toString(rezultat));
             }
 
-            if(op.equals("scadere")){
+            if (op.equals("scadere")) {
                 rezultat = operatii.scadere(operatii.parsarePolinom(poly1TextField.getText()), operatii.parsarePolinom(poly2TextField.getText()));
                 poly3TextField.setText(operatii.toString(rezultat));
             }
 
-            if(op.equals("derivare")){
+            if (op.equals("derivare")) {
                 rezultat = operatii.derivare(operatii.parsarePolinom(poly1TextField.getText()));
                 poly3TextField.setText(operatii.toString(rezultat));
             }
-            if(op.equals("integrare")){
+            if (op.equals("integrare")) {
                 rezultat = operatii.integrare(operatii.parsarePolinom(poly1TextField.getText()));
                 poly3TextField.setText(operatii.toString(rezultat));
             }
-            if(op.equals("inmultire")){
+            if (op.equals("inmultire")) {
                 rezultat = operatii.inmultire(operatii.parsarePolinom(poly1TextField.getText()), operatii.parsarePolinom(poly2TextField.getText()));
                 poly3TextField.setText(operatii.toString(rezultat));
             }
-            if(op.equals("reset")){
+            if (op.equals("reset")) {
                 poly1TextField.setText("");
                 poly2TextField.setText("");
                 poly3TextField.setText("");
@@ -152,4 +152,4 @@ public class Interfata implements ActionListener{
 
     }
 
-    }
+}

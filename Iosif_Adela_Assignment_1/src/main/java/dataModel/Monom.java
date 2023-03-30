@@ -1,5 +1,7 @@
 package dataModel;
+
 import java.util.*;
+
 public class Monom {
     //declarare campuri pt coeficient si exponent monom, incapsulate
     private float coef;

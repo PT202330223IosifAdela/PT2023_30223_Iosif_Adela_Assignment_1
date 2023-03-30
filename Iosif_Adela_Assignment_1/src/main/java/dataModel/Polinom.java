@@ -1,4 +1,5 @@
 package dataModel;
+
 import java.util.*;
 
 
@@ -10,8 +11,7 @@ public class Polinom {
         this.monoame = new HashMap<>();
     }
 
-    public Polinom(Map<Integer, Monom> m)
-    {
+    public Polinom(Map<Integer, Monom> m) {
         this.monoame = m;
     }
 
