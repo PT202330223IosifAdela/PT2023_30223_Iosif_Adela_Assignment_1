@@ -90,7 +90,6 @@ public class Operatii {
             Monom rezMonon;
             Integer putere = entry.getKey();
             float coef = entry.getValue().getCoef();
-            // System.out.println(coef);
             rezMonon = new Monom(coef / (float) (putere + 1), putere + 1);
             rez.getMonoame().put(putere + 1, rezMonon);
         }
@@ -103,10 +102,11 @@ public class Operatii {
         //grad monom-cheie; monom-valoare
         for (Map.Entry<Integer, Monom> entryA : a.getMonoame().entrySet()) {
             for (Map.Entry<Integer, Monom> entryB : b.getMonoame().entrySet()) {
-                int putere = entryA.getKey() * entryB.getKey();
-                Monom rezMonom = new Monom(putere,
-                        entryA.getValue().getExp() + entryB.getValue().getExp());
-                Monom existent = b.getMonoame().get(putere);
+                Integer putere = entryA.getKey()+entryB.getKey();
+                float coef = entryA.getValue().getCoef()*entryB.getValue().getCoef();
+
+                Monom rezMonom = new Monom(coef, putere);
+                Monom existent = polinomRez.getMonoame().get(putere);
 
                 if (existent != null) {
                     existent.setCoef((existent.getCoef()) + rezMonom.getCoef());
@@ -117,7 +117,6 @@ public class Operatii {
         }
         return polinomRez;
     }
-
 
     public String toString(Polinom polinom) {
         String rezultat = "";
