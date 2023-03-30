@@ -13,27 +13,26 @@ public class Operatii {
         Polinom polinomRez = new Polinom();
 
         //grad monom-cheie; monom-valoare
-        for (Map.Entry<Integer, Monom> entry: a.getMonoame().entrySet()) {
+        for (Map.Entry<Integer, Monom> entry : a.getMonoame().entrySet()) {
             Monom m = entry.getValue();
             Integer putere = entry.getKey();
             Monom existent = b.getMonoame().get(putere);
 
-            if(existent != null){
+            if (existent != null) {
                 float coef = m.getCoef() + existent.getCoef();
                 Monom rezMonom = new Monom(coef, putere);
                 polinomRez.getMonoame().put(putere, rezMonom);
                 b.getMonoame().remove(putere);
-            }
-            else{
+            } else {
                 polinomRez.getMonoame().put(putere, m);
             }
         }
-        for(Map.Entry<Integer, Monom> entry: b.getMonoame().entrySet()){
-            Monom m =entry.getValue();
+        for (Map.Entry<Integer, Monom> entry : b.getMonoame().entrySet()) {
+            Monom m = entry.getValue();
             Integer putere = entry.getKey();
             polinomRez.getMonoame().put(putere, m);
         }
-    //sortare dupa grad - to de
+        //sortare dupa grad - to de
         return polinomRez;
     }
 
@@ -41,12 +40,12 @@ public class Operatii {
         Polinom polinomRez = new Polinom();
 
         //grad monom-cheie; monom-valoare
-        for (Map.Entry<Integer, Monom> entry: a.getMonoame().entrySet()) {
+        for (Map.Entry<Integer, Monom> entry : a.getMonoame().entrySet()) {
             Monom m = entry.getValue();
             Integer putere = entry.getKey();
             Monom existent = b.getMonoame().get(putere);
 
-            if(existent != null) {
+            if (existent != null) {
                 float coef = m.getCoef() - existent.getCoef();
                 Monom rezMonom = new Monom(coef, putere);
 
@@ -54,13 +53,12 @@ public class Operatii {
                     polinomRez.getMonoame().put(putere, rezMonom);
                 }
                 b.getMonoame().remove(putere);
-            }
-            else{
+            } else {
                 polinomRez.getMonoame().put(putere, m);
             }
         }
-        for(Map.Entry<Integer, Monom> entry: b.getMonoame().entrySet()){
-            Monom m =entry.getValue();
+        for (Map.Entry<Integer, Monom> entry : b.getMonoame().entrySet()) {
+            Monom m = entry.getValue();
             Integer putere = entry.getKey();
             Monom rezMonon = new Monom((-1) * m.getCoef(), putere);
             polinomRez.getMonoame().put(putere, rezMonon);
@@ -69,19 +67,59 @@ public class Operatii {
         return polinomRez;
     }
 
-   public Polinom derivare(Polinom a) {
+    public Polinom derivare(Polinom a) {
         Polinom rez = new Polinom();
-
-       for(Map.Entry<Integer, Monom> entry: a.getMonoame().entrySet()){
-           Integer putere = entry.getKey();
-           float coef = entry.getValue().getCoef();
-           Monom rezMonon = new Monom(coef * putere, putere - 1);
-           rez.getMonoame().put(putere - 1, rezMonon);
-       }
+        for (Map.Entry<Integer, Monom> entry : a.getMonoame().entrySet()) {
+            Integer putere = entry.getKey();
+            float coef = entry.getValue().getCoef();
+            Monom rezMonom;
+            if (putere == 1 && coef == 1.0) {    //input: x
+                rezMonom = new Monom(1, 0);
+            } else {
+                rezMonom = new Monom(coef * (float) putere, putere - 1);
+            }
+            rez.getMonoame().put(putere - 1, rezMonom);
+        }
         return rez;
     }
 
-    public String toString(Polinom polinom){
+    public Polinom integrare(Polinom a) {
+        Polinom rez = new Polinom();
+
+        for (Map.Entry<Integer, Monom> entry : a.getMonoame().entrySet()) {
+            Monom rezMonon;
+            Integer putere = entry.getKey();
+            float coef = entry.getValue().getCoef();
+            // System.out.println(coef);
+            rezMonon = new Monom(coef / (float) (putere + 1), putere + 1);
+            rez.getMonoame().put(putere + 1, rezMonon);
+        }
+        return rez;
+    }
+
+    public Polinom inmultire(Polinom a, Polinom b) {
+        Polinom polinomRez = new Polinom();
+
+        //grad monom-cheie; monom-valoare
+        for (Map.Entry<Integer, Monom> entryA : a.getMonoame().entrySet()) {
+            for (Map.Entry<Integer, Monom> entryB : b.getMonoame().entrySet()) {
+                int putere = entryA.getKey() * entryB.getKey();
+                Monom rezMonom = new Monom(putere,
+                        entryA.getValue().getExp() + entryB.getValue().getExp());
+                Monom existent = b.getMonoame().get(putere);
+
+                if (existent != null) {
+                    existent.setCoef((existent.getCoef()) + rezMonom.getCoef());
+                } else {
+                    polinomRez.getMonoame().put(putere, rezMonom);
+                }
+            }
+        }
+        return polinomRez;
+    }
+
+
+    public String toString(Polinom polinom) {
         String rezultat = "";
 
         for (Map.Entry<Integer, Monom> entry : polinom.getMonoame().entrySet()) {
@@ -99,7 +137,15 @@ public class Operatii {
                         if (coef != -1) {
                             rezultat = rezultat + (int) coef;//nu mai punem 0 degeaba
                         } else {
-                            rezultat = rezultat + "-";  //coef negativ diferit de -1
+                            if (putere == 0) {
+                                rezultat = rezultat + "-1";
+                            } else {
+                                rezultat = rezultat + "-";  //coef negativ diferit de -1
+                            }
+                        }
+                    } else {
+                        if (putere == 0) {
+                            rezultat = rezultat + "1";
                         }
                     }
                 } else {   //coef pozitivi diferiti de 1
@@ -114,21 +160,19 @@ public class Operatii {
                 }
             }
         }
-        if(rezultat.equals("")){
+        if (rezultat.equals("")) {
             return "0";
-        }
-        else{
+        } else {
             return rezultat;
         }
     }
 
-    public Polinom parsarePolinom(String polinom) throws PolinomIntrareGresit{
+    public Polinom parsarePolinom(String polinom) throws PolinomIntrareGresit {
         Polinom rez = new Polinom();
         if (Objects.equals(polinom, "")) {//textbox gol, nu s-au introdus polinoame
             throw new PolinomIntrareGresit("Nu ati introdus date");
         }
         String pattern = "((\\+|\\-|^)(\\d*))x{0,1}(\\^\\-{0,1}(\\d+))*";
-       // String pattern ="((\\+|\\-|^)(\\d*\\.?\\d+|\\.\\d+))x{0,1}(\\^\\-{0,1}(\\d+))*";
 
         Pattern p = Pattern.compile(pattern);
 
@@ -136,9 +180,9 @@ public class Operatii {
         Matcher m = p.matcher(polinom);
 
         while (m.find()) {
-            matcher.append(m.group(0));//fiecare cuv pe linie noua //0
-            String coef = m.group(1); //1
-            String putere = m.group(5);//5
+            matcher.append(m.group(0));
+            String coef = m.group(1);   //(\+|\-|^)(\d*))
+            String putere = m.group(5); //(\^\-{0,1}(\d+))*
 
             float coefParsat = 1.0F;
 
@@ -174,10 +218,10 @@ public class Operatii {
                 }
             }
         }
-        if(!polinom.equals(matcher.toString())){
+        if (!polinom.equals(matcher.toString())) {
             throw new PolinomIntrareGresit("Polinom introdus gresit.");
         }
-    return rez;
+        return rez;
     }
 
 }
