@@ -119,50 +119,50 @@ public class Operatii {
     }
 
     public String toString(Polinom polinom) {
-        String rezultat = "";
+        StringBuilder rezultat = new StringBuilder();
 
         for (Map.Entry<Integer, Monom> entry : polinom.getMonoame().entrySet()) {
             float coef = entry.getValue().getCoef();
             int putere = entry.getKey();
 
             //pt coeficienti pozitivi
-            if (coef > 0 && !rezultat.equals("")) {
-                rezultat = rezultat + "+";
+            if (coef > 0 && !rezultat.toString().equals("")) {
+                rezultat.append("+");
             }
 
             if (coef != 0) {
                 if (Math.ceil(coef) == coef) {//coef e practic intreg
                     if (coef != 1) {
                         if (coef != -1) {
-                            rezultat = rezultat + (int) coef;//nu mai punem 0 degeaba
+                            rezultat.append((int) coef);//nu mai punem 0 degeaba
                         } else {
                             if (putere == 0) {
-                                rezultat = rezultat + "-1";
+                                rezultat.append("-1");
                             } else {
-                                rezultat = rezultat + "-";  //coef negativ diferit de -1
+                                rezultat.append("-");  //coef negativ diferit de -1
                             }
                         }
                     } else {
                         if (putere == 0) {
-                            rezultat = rezultat + "1";
+                            rezultat.append("1");
                         }
                     }
                 } else {   //coef pozitivi diferiti de 1
-                    rezultat = rezultat + String.format("%.02f", coef); //2 zecimale
+                    rezultat.append(String.format("%.02f", coef)); //2 zecimale
                 }
                 if (putere != 0) {
-                    rezultat = rezultat + "x";
+                    rezultat.append("x");
                     if (putere != 1) {
-                        rezultat = rezultat + "^";  //x^1=x; punem puterea doar daca e dif de 1
-                        rezultat = rezultat + putere;
+                        rezultat.append("^");  //x^1=x; punem puterea doar daca e dif de 1
+                        rezultat.append(putere);
                     }
                 }
             }
         }
-        if (rezultat.equals("")) {
+        if (rezultat.toString().equals("")) {
             return "0";
         } else {
-            return rezultat;
+            return rezultat.toString();
         }
     }
 
